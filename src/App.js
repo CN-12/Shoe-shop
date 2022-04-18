@@ -11,6 +11,7 @@ import {
 import './App.css';
 import Data from './data.js';
 import { Link, Route, Switch } from 'react-router-dom';
+import Detail from './Detail.js';
 
 function App() {
   let [shoes, shoes변경] = useState(Data);
@@ -23,8 +24,8 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
+              <Nav.Link> <Link to="/">Home</Link> </Nav.Link>
+              <Nav.Link> <Link to="/detail">Detail</Link> </Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">
@@ -44,6 +45,7 @@ function App() {
       </Navbar>
 
       {/* exact 똑같을때만 */}
+      <Switch>
       <Route exact path="/">
         <Jumbotron className="background">
           <h1>20% Season Off</h1>
@@ -57,49 +59,26 @@ function App() {
         </Jumbotron>
         <div className="container">
           <div className="row">
-            {/* <Card shoes={shoes[0]} />
-          <Card shoes={shoes[1]} />
-          <Card shoes={shoes[2]} /> */}
             {shoes.map((a, i) => {
               return <Card shoes={a} i={i} key={i} />;
             })}
-            {/* {
-            shoes.map(function(신발){
-              return  (
-              <div className="col-md-4">
-          <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
-            <h4>{ 신발.title }</h4>
-            <p>{ 신발.content} & { 신발.price}</p>
-          </div>
-            )
-            })
-          } */}
           </div>
         </div>
       </Route>
-      
+
       <Route path="/detail">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6">
-              <img
-                src="https://codingapple1.github.io/shop/shoes1.jpg"
-                width="100%"
-              />
-            </div>
-            <div className="col-md-6 mt-4">
-              <h4 className="pt-5">상품명</h4>
-              <p>상품설명</p>
-              <p>120000원</p>
-              <button className="btn btn-danger">주문하기</button>
-            </div>
-          </div>
-        </div>
+        <Detail />
       </Route>
       {/* <Route path="/어쩌구" component={Modal}></Route> */}
+      <Route path="/:id">
+        <div>아무거나적었을때 이거 보여주셈</div>
+      </Route>
+      </Switch>
     </div>
   );
 }
+
+
 function Card(props) {
   return (
     <div className="col-md-4">
