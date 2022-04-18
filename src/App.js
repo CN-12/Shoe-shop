@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Navbar,
   Container,
@@ -7,9 +7,10 @@ import {
   NavDropdown,
   Jumbotron,
   Button,
-} from "react-bootstrap";
-import "./App.css";
-import Data from "./data.js";
+} from 'react-bootstrap';
+import './App.css';
+import Data from './data.js';
+import { Link, Route, Switch } from 'react-router-dom';
 
 function App() {
   let [shoes, shoes변경] = useState(Data);
@@ -41,26 +42,28 @@ function App() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Jumbotron className="background">
-        <h1>20% Season Off</h1>
-        <p>
-          This is a simple hero unit, a simple jumbotron-style component for
-          calling extra attention to featured content or information.
-        </p>
-        <p>
-          <Button variant="primary">Learn more</Button>
-        </p>
-      </Jumbotron>
 
-      <div className="container">
-        <div className="row">
-          {/* <Card shoes={shoes[0]} />
+      {/* exact 똑같을때만 */}
+      <Route exact path="/">
+        <Jumbotron className="background">
+          <h1>20% Season Off</h1>
+          <p>
+            This is a simple hero unit, a simple jumbotron-style component for
+            calling extra attention to featured content or information.
+          </p>
+          <p>
+            <Button variant="primary">Learn more</Button>
+          </p>
+        </Jumbotron>
+        <div className="container">
+          <div className="row">
+            {/* <Card shoes={shoes[0]} />
           <Card shoes={shoes[1]} />
           <Card shoes={shoes[2]} /> */}
-          {shoes.map((a, i) => {
-            return <Card shoes={a} i={i} key={i}/>;
-          })}
-          {/* {
+            {shoes.map((a, i) => {
+              return <Card shoes={a} i={i} key={i} />;
+            })}
+            {/* {
             shoes.map(function(신발){
               return  (
               <div className="col-md-4">
@@ -71,17 +74,46 @@ function App() {
             )
             })
           } */}
+          </div>
         </div>
-      </div>
+      </Route>
+      
+      <Route path="/detail">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6">
+              <img
+                src="https://codingapple1.github.io/shop/shoes1.jpg"
+                width="100%"
+              />
+            </div>
+            <div className="col-md-6 mt-4">
+              <h4 className="pt-5">상품명</h4>
+              <p>상품설명</p>
+              <p>120000원</p>
+              <button className="btn btn-danger">주문하기</button>
+            </div>
+          </div>
+        </div>
+      </Route>
+      {/* <Route path="/어쩌구" component={Modal}></Route> */}
     </div>
   );
 }
 function Card(props) {
   return (
     <div className="col-md-4">
-      <img src={ 'https://codingapple1.github.io/shop/shoes' + (props.i+1) + '.jpg' } width="100%" />
+      <img
+        src={
+          'https://codingapple1.github.io/shop/shoes' + (props.i + 1) + '.jpg'
+        }
+        width="100%"
+      />
       <h4> {props.shoes.title}</h4>
-      <p> {props.shoes.content} & {props.shoes.price} </p>
+      <p>
+        {' '}
+        {props.shoes.content} & {props.shoes.price}{' '}
+      </p>
     </div>
   );
 }
