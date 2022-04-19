@@ -1,0 +1,38 @@
+@import './reset.scss';
+
+$메인칼라: #ff0000;
+.red {
+  color: $메인칼라;
+}
+
+// div.container h4 {
+//   color: blue;
+// }
+// div.container p {
+//   color: green;
+// }
+
+div.container {
+  h4 {
+    color: blue;
+  }
+}
+@mixin 함수() {
+  background-color: #eeeeee;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+}
+.my-alert {
+  @include 함수();
+}
+.my-alert2 {
+  @extend .my-alert;
+  background-color: #ffe591;
+}
+
+.my-alert p {
+  margin-bottom: 0px;
+}
