@@ -14,6 +14,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 import Detail from './Detail.js';
 
 function App() {
+
   let [shoes, shoes변경] = useState(Data);
 
   return (
@@ -66,8 +67,12 @@ function App() {
         </div>
       </Route>
 
+      <Route path="/detail/:id">
+        <Detail shoes={shoes}/>
+      </Route>
+      
       <Route path="/detail">
-        <Detail />
+        <Detail shoes={shoes} />
       </Route>
       {/* <Route path="/어쩌구" component={Modal}></Route> */}
       <Route path="/:id">
