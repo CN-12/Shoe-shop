@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Navbar,
   Container,
@@ -14,9 +14,10 @@ import { Link, Route, Switch } from 'react-router-dom';
 import Detail from './Detail.js';
 import axios from 'axios';
 import data from './data.js';
+import Cart from './Cart.js';
 
 
-let 재고context = React.createContext();
+export let 재고context = React.createContext();
 
 function App() {
 
@@ -53,6 +54,7 @@ function App() {
 
       {/* exact 똑같을때만 */}
       <Switch>
+
       <Route exact path="/">
         <Jumbotron className="background">
           <h1>20% Season Off</h1>
@@ -64,10 +66,10 @@ function App() {
             <Button variant="primary">Learn more</Button>
           </p>
         </Jumbotron>
-        
+
         <div className="container">
           
-          <재고context.Provider>
+          <재고context.Provider value={재고}>
 
           <div className="row">
             {shoes.map((a, i) => {
@@ -91,10 +93,19 @@ function App() {
         </div>
       </Route>
 
+
+
       <Route path="/detail/:id">
-        <Detail shoes={shoes} 재고={재고} 재고변경={재고변경}/>
+        <재고context.Provider value={재고}>
+          <Detail shoes={shoes} 재고={재고} 재고변경={재고변경}/>
+        </재고context.Provider>
       </Route>
       
+
+      <Route path="/cart">
+        <Cart></Cart>
+      </Route>
+
       <Route path="/detail">
         <Detail shoes={shoes} />
       </Route>
@@ -111,12 +122,22 @@ function App() {
 
 
 function Card(props) {
+
+  let 재고 = useContext(재고context);
+
   return (
     <div className="col-md-4">
       <img src={ 'https://codingapple1.github.io/shop/shoes' + (props.i + 1) + '.jpg' } width="100%"/>
       <h4> {props.shoes.title}</h4>
-      <p> {props.shoes.content} & {props.shoes.price}{' '} </p>
+      <p> {props.shoes.content} & {props.shoes.price}</p>
+      <Test></Test>
     </div>
   );
+}
+
+
+function Test() {
+  let 재고 = useContext(재고context);
+  return <p>{재고[0]}</p>
 }
 export default App;
