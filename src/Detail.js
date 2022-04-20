@@ -23,9 +23,9 @@ let 제목 = styled.h4`
 
 
 function Detail(props) {
-  let [modal, modal변경] = useState(true);
+  let [alert, alert변경] = useState(true);
   useEffect(()=>{
-    let 타이머 = setTimeout(()=>{modal변경(false)} , 2000);
+    let 타이머 = setTimeout(()=>{alert변경(false)} , 2000);
   });
   let { id } = useParams();
   let history = useHistory();
@@ -33,16 +33,16 @@ function Detail(props) {
     return 상품.id == id;
   });
 
-  useEffect(()=>{
-    return function 어쩌구(){ 실행할코드~~~ }
-  });
+  // useEffect(()=>{
+  //   return function 어쩌구(){ 실행할코드~~~ }
+  // });
   return (
     <div className="container">
       <박스>
         <제목 className="red">Detail</제목>
       </박스>
       {
-      modal === true
+      alert === true
       ? <div className="my-alert2">
           <p>재고가 얼마 남지 않았습니다</p>
         </div>
