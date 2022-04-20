@@ -12,16 +12,22 @@ import './App.css';
 import Data from './data.js';
 import { Link, Route, Switch } from 'react-router-dom';
 import Detail from './Detail.js';
+import axios from 'axios';
+import data from './data.js';
+
+
+let 재고context = React.createContext();
 
 function App() {
 
   let [shoes, shoes변경] = useState(Data);
+  let [재고, 재고변경] = useState([10, 11, 12]);
 
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
+          <Navbar.Brand href="/">ShoeShop</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -58,17 +64,35 @@ function App() {
             <Button variant="primary">Learn more</Button>
           </p>
         </Jumbotron>
+        
         <div className="container">
+          
+          <재고context.Provider>
+
           <div className="row">
             {shoes.map((a, i) => {
               return <Card shoes={a} i={i} key={i} />;
             })}
           </div>
+
+          </재고context.Provider>
+
+          <button className="btn btn-primary" onClick={()=>{
+            //fetch도 가능 but 따음표 삭제 못 함
+            axios.post('서버URL', {id : 'condingapple', pw : 1234}).then();
+            axios.get('https://codingapple1.github.io/shop/data2.json')
+            .then((reuslt)=>{
+            shoes변경([...shoes, ...reuslt.data]);
+            })
+            .catch(()=>{
+            console.log('실패했어요')
+            })
+          }}>더보기</button>
         </div>
       </Route>
 
       <Route path="/detail/:id">
-        <Detail shoes={shoes}/>
+        <Detail shoes={shoes} 재고={재고} 재고변경={재고변경}/>
       </Route>
       
       <Route path="/detail">
@@ -78,7 +102,9 @@ function App() {
       <Route path="/:id">
         <div>아무거나적었을때 이거 보여주셈</div>
       </Route>
+
       </Switch>
+      
     </div>
   );
 }
@@ -87,17 +113,9 @@ function App() {
 function Card(props) {
   return (
     <div className="col-md-4">
-      <img
-        src={
-          'https://codingapple1.github.io/shop/shoes' + (props.i + 1) + '.jpg'
-        }
-        width="100%"
-      />
+      <img src={ 'https://codingapple1.github.io/shop/shoes' + (props.i + 1) + '.jpg' } width="100%"/>
       <h4> {props.shoes.title}</h4>
-      <p>
-        {' '}
-        {props.shoes.content} & {props.shoes.price}{' '}
-      </p>
+      <p> {props.shoes.content} & {props.shoes.price}{' '} </p>
     </div>
   );
 }
