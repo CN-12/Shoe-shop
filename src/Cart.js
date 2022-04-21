@@ -26,14 +26,25 @@ function Cart(props) {
          })
         }
       </Table>
+      { 
+      props.alert열렸니 === true
+      ? <div className="my-alert2">
+        <p>지금 구매하시면 신규할인 20%</p>
+        <button onClick={()=>{props.dispatch({type:'alert닫기'})}}>닫기</button>
+      </div>
+      : null
+    }
     </div>
   );
 }
 
 function state를props화(state) {
+  console.log(state);
     return {
-        state : state
+        state : state.reducer,
+        alert열렸니 : state.reducer2
     }
 }
+
 export default connect(state를props화)(Cart)
 //export default Cart;
