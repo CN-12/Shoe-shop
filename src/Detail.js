@@ -6,6 +6,7 @@ import "./Detail.scss";
 import { 재고context } from "./App.js";
 import { Nav } from "react-bootstrap";
 import { CSSTransition } from 'react-transition-group';
+import { connect } from "react-redux";
 
 
 
@@ -62,42 +63,32 @@ function Detail(props) {
       {/* { inputData }
       <input onChange={(e)=>{inputData변경(e.target.value) }}/> */}
 
-      {alert === true ? (
+      {
+      alert === true ? (
         <div className="my-alert2">
           <p>재고가 얼마 남지 않았습니다</p>
         </div>
-      ) : null}
+      ) : null
+      }
 
       <div className="row">
         <div className="col-md-6">
-          <img
-            src="https://codingapple1.github.io/shop/shoes1.jpg"
-            width="100%"
-          />
+          <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
         </div>
         <div className="col-md-6 mt-4">
           <h4 className="pt-5">{찾은상품.title}</h4>
           <p>{찾은상품.content}</p>
           <p>{찾은상품.price}</p>
           <Info 재고={props.재고}></Info>
-          <button
-            className="btn btn-danger"
-            onClick={() => {
-              var 새거 = [...props.재고];
-              새거[0] -= 1;
-              props.재고변경(새거);
+          <button className="btn btn-danger" onClick={() => {
+              props.재고변경([9, 11, 12]);
+              props.dispatch({type : '항목추가', payload : {id: 2, name : 찾은상품.title, quan : props.재고[0]}});
+              history.push('/cart');
             }}
-          >
-            주문하기
-          </button>
-          <button
-            className="btn btn-danger"
-            onClick={() => {
+          >주문하기</button>
+          <button className="btn btn-danger" onClick={() => {
               history.goBack();
-            }}
-          >
-            뒤로가기
-          </button>
+            }}>뒤로가기</button>
         </div>
       </div>
 
@@ -133,4 +124,14 @@ function TabContent(props) {
 function Info(props) {
   return <p>재고: {props.재고[0]}</p>;
 }
-export default Detail;
+
+function state를props화(state) {
+  console.log(state);
+    return {
+        state : state.reducer,
+        alert열렸니 : state.reducer2
+    }
+}
+
+export default connect(state를props화)(Detail)
+
