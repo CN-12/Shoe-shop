@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, lazy, Suspense } from 'react';
 import {
   Navbar,
   Container,
@@ -11,10 +11,12 @@ import {
 import './App.css';
 import Data from './data.js';
 import { Link, Route, Switch } from 'react-router-dom';
-import Detail from './Detail.js';
+let Detail = lazy(()=> { return import('./Detail.js')});
+// import Detail from './Detail.js';
 import axios from 'axios';
-import data from './data.js';
+
 import Cart from './Cart.js';
+
 
 
 export let 재고context = React.createContext();
@@ -97,7 +99,9 @@ function App() {
 
       <Route path="/detail/:id">
         <재고context.Provider value={재고}>
-          <Detail shoes={shoes} 재고={재고} 재고변경={재고변경}/>
+          <Suspense fallback={<div>로딩중이에요</div>}>
+            <Detail shoes={shoes} 재고={재고} 재고변경={재고변경}/>
+          </Suspense>
         </재고context.Provider>
       </Route>
       
@@ -106,9 +110,9 @@ function App() {
         <Cart></Cart>
       </Route>
 
-      <Route path="/detail">
+      {/* <Route path="/detail">
         <Detail shoes={shoes} />
-      </Route>
+      </Route> */}
       {/* <Route path="/어쩌구" component={Modal}></Route> */}
       <Route path="/:id">
         <div>아무거나적었을때 이거 보여주셈</div>
