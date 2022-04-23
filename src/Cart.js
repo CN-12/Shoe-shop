@@ -6,6 +6,13 @@ function Cart(props) {
   let state = useSelector((state) => state)
   console.log(state.reducer)
   let dispatch = useDispatch();
+
+  function 성능관련() {
+    //함수나 오브젝트는 선언해주세요!!
+    //메모리 할당이 필요없어짐
+    //애니메이션 막 주지 말고 되도록 transform ㄱㄱ
+    //App.js 방문시 import 모두 다 로딩 lazy loading
+  }
   return (
     <div>
       <Table responsive>
