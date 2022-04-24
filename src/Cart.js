@@ -2,6 +2,7 @@ import React, { memo, useEffect } from "react";
 import { Table } from 'react-bootstrap';
 import { connect, useDispatch, useSelector } from "react-redux";
 import "./Detail.scss";
+
 function Cart(props) {
   let state = useSelector((state) => state)
   console.log(state.reducer)

@@ -83,7 +83,7 @@ function App() {
 
           <button className="btn btn-primary" onClick={()=>{
             //fetch도 가능 but 따음표 삭제 못 함
-            axios.post('서버URL', {id : 'condingapple', pw : 1234}).then();
+            // axios.post('서버URL', {id : 'condingapple', pw : 1234}).then();
             axios.get('https://codingapple1.github.io/shop/data2.json')
             .then((reuslt)=>{
             shoes변경([...shoes, ...reuslt.data]);
@@ -144,4 +144,5 @@ function Test() {
   let 재고 = useContext(재고context);
   return <p>{재고[0]}</p>
 }
+
 export default App;

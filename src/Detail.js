@@ -9,7 +9,6 @@ import { CSSTransition } from 'react-transition-group';
 import { connect } from "react-redux";
 
 
-
 let 박스 = styled.div`
   padding: 20px;
 `;
@@ -28,6 +27,28 @@ let 제목 = styled.h4`
 // }
 
 function Detail(props) {
+  useEffect(()=>{
+    // if(localStorage.getItem() != null) {
+    //   if(localStorage.getItem) {
+    //     localStorage.setItem('id', JSON.stringify({}))
+    //   }
+    // }
+    var arr = localStorage.getItem('watched');
+    if(arr === null) {
+      arr = [];
+    } else {
+      arr = JSON.parse(arr);
+    }
+    
+
+    arr.push(id);
+    arr = new Set(arr);
+    arr = [...arr];
+
+    localStorage.setItem('watched', JSON.stringify(arr));
+
+  },[])
+  
   let [alert, alert변경] = useState(true);
 
   let [inputData, inputData변경] = useState("");
